@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.LoginPage;
 
 public class LoginTests {
 
@@ -20,7 +21,48 @@ public class LoginTests {
     @Test
     public void testValidLogin() {
         driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(USERNAME, PASSWORD, EMAIL);
     }
+
+    @Test
+    public void testEmptyLogin() {
+        driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("", "", "");
+    }
+
+    @Test
+    public void testWrongFormatEmail() {
+        driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(USERNAME, PASSWORD, "invalid-email");
+    }
+
+    @Test
+    public void testEmptyUsername() {
+        driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("", PASSWORD, EMAIL);
+    }
+
+    @Test
+    public void testEmptyPassword() {
+        driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(USERNAME, "", EMAIL);
+    }
+
+    @Test
+    public void testEmptyEmail() {
+        driver.get(BASE_URL);
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(USERNAME, PASSWORD, "");
+    }
+
+    @Test
+
+
 
     @AfterEach
     void tearDown() {
